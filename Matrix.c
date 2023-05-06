@@ -14,7 +14,7 @@ int* Matrix(int row, int col){
     // we will create an array of size = row * col + 4 bytes, to store the size info within the matrix itself
 
     //creating a pointer that points to an integer, then assigning a contigous block of sequential memory locations
-    int * matrix = (int * )malloc((sizeof (int) * row * col) + sizeof(int)*2);
+    int * matrix = (int * )malloc((sizeof (int) * ((row * col)+2)));
 
     // we are allocating memory for the array, just so that when the function ends, and returns the value, 
     // the compiler will not deallocate matrix (as it would do usually).
@@ -44,14 +44,9 @@ void FillMatrix(int * Matrix, int mode){
     int col = *(Matrix+1);
     int size = row*col;
     switch (mode){
-        case 0: printf("Hiya");
+        case 0: printf("\n");
                 for(int i = 2; i < size; i++){
-                    
-                    if(i % col == 0){
-                        printf("\n");
-                    }
-                    scanf("%d", (Matrix + i));
-        
+                    *(Matrix + i) = 0;
                 }
                 break;
 
@@ -78,15 +73,13 @@ void DisplayMatrix(int * Matrix){
 
     // Step 2 : iterate using that information we extracted before
 
-    int curValue;
-
     // we are starting at index 2, because index 0 and 1 store the row and col size respectively, 
     // they dont store the actual matrix
     for(int i = 2; i < size; i++){
-        if(i % col == 0){
+        if((i-2) % col == 0){
             printf("\n");
         }
-        curValue = *(Matrix + i);
+        
         printf(" | %d | ", *(Matrix + i));
         
     }
@@ -101,9 +94,9 @@ int main(){
     printf("Start");
     int *matrix;
     
-    matrix = Matrix(3,3); //row column format
+    matrix = Matrix(4,4); //row column format
     
-    //FillMatrix(matrix, 0);
+    FillMatrix(matrix, 0);
     DisplayMatrix(matrix);
     
 
