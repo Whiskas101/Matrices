@@ -9,8 +9,9 @@ void FillMatrix(int * Matrix, int mode);
 int * AddMatrix(int * MatrixA, int * MatrixB, int multiplier);
 int RowSize(int* Matrix);
 int ColSize(int* Matrix);
+int * Multiply(int * MatrixA, int * MatrixB);
 
-//-----------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------FUNCTION--WALL--START------------------------------------------------------------------------------
 
 int RowSize(int* Matrix){
     return *(Matrix);
@@ -65,7 +66,7 @@ void FillMatrix(int * Matrix, int mode){
                 for(int i = 2; i < size; i++){
                     *(Matrix + i) = 0;
                 }
-                printf("\n Filled matrix [ %d x %d ] with zeroes", row, col);
+                printf("\n Initialised matrix [ %d x %d ] with zeroes", row, col);
                 break;
 
         //creating identity matrix
@@ -191,18 +192,49 @@ int * AddMatrix(int * MatrixA, int * MatrixB, int multiplier){
         DisplayMatrix(ResultMatrix);
 
     }
+
+    return ResultMatrix;
 }
 // this is not the way we are supposed to handle addition or any other operation
 // a more general and more user friendly input system will be implemented
 
 
 
+int * Multiply(int * MatrixA, int * MatrixB){
+    //extracting data
+    int row_A = RowSize(MatrixA);
+    int col_A = ColSize(MatrixA);
+    int row_B = RowSize(MatrixB);
+    int col_B = ColSize(MatrixB);
 
+
+    //resultmatrix
+    int *ResultMatrix;
+    ResultMatrix = Matrix(row_A, col_B);
+
+    //checking if the matrices are valid for multiplication.
+    if(col_A != row_B){
+        printf("\n Multiplication cannot be performed on matrices with different ROW and COL sizes !!! \n");
+        FillMatrix(ResultMatrix, 0);
+    }else{
+
+        //code to be written for matrix multiplication operation
+
+    }
+
+
+    
+}
+
+
+
+//----------------------------------------------FUNCTION-WALL-END------------------------------------------------------------------------------
 // all instances exist here, will be converted to a proper usable library when all testing is done, and code is 100% bug free
 // and practically applicable
 
 int main(){
-    
+
+    //testing if recently implemented functions are working
     printf("\n Start \n");
     int *matrix1;
     int *matrix2;
@@ -211,9 +243,11 @@ int main(){
     matrix2 = Matrix(2,2);
     
     FillMatrix(matrix1, 2);
-    FillMatrix(matrix2, 1);
+    FillMatrix(matrix2, 2);
     
-    AddMatrix(matrix1, matrix2, 1);
+    int *matrix3;
+
+    matrix3 = AddMatrix(matrix1, matrix2, 1);
 
     DeleteMatrix(matrix1);
     
