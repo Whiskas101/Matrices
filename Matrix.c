@@ -113,7 +113,6 @@ void FillMatrix(int * Matrix, int mode){
                     }
                     
                 }
-
                 printf("\n Filled matrix [ %d x %d ]", row, col);
                 DisplayMatrix(Matrix);
                 break;
@@ -141,7 +140,7 @@ void DisplayMatrix(int * Matrix){
     // we are starting at index 2, because index 0 and 1 store the row and col size respectively, 
     // they dont store the actual matrix
     for(int i = 2; i < size; i++){
-        if((i-2) % col == 0){
+        if((i-2) % col == 0){ //i -2 to offset the counter, accounting for the first 2 size elements (row & col)
             printf("\n");
         }
         printf(" | %d | ", *(Matrix + i));
@@ -171,6 +170,8 @@ int * AddMatrix(int * MatrixA, int * MatrixB, int multiplier){
 
     //resulting matrix is created here, initialised to zero
     int *ResultMatrix = Matrix(row_A, col_A); 
+    
+
     FillMatrix(ResultMatrix, 0);
 
 
@@ -217,13 +218,36 @@ int * Multiply(int * MatrixA, int * MatrixB){
         printf("\n Multiplication cannot be performed on matrices with different ROW and COL sizes !!! \n");
         FillMatrix(ResultMatrix, 0);
     }else{
+        
+        int sum = 0;
+        
 
-        //code to be written for matrix multiplication operation
+
+        
 
     }
 
 
     
+}
+
+
+int * Transpose(int * inputMatrix){
+    //extracting row and col size
+    int row = RowSize(inputMatrix);
+    int col = ColSize(inputMatrix);
+
+    //swapping dimensions
+    int temp;
+    temp = row;
+    row = col;
+    col = temp;
+
+    //intializing a matrix that is of the dimensions of the transpose of the inputMatrix
+    int * ResultMatrix;
+    ResultMatrix = Matrix(row, col);
+
+    return ResultMatrix;
 }
 
 
@@ -250,6 +274,8 @@ int main(){
     matrix3 = AddMatrix(matrix1, matrix2, 1);
 
     DeleteMatrix(matrix1);
+    DeleteMatrix(matrix2);
+    DeleteMatrix(matrix3);
     
 
 }
